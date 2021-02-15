@@ -21,22 +21,23 @@ As WikiEdits only supports Python 2.7 and spaCy requires Python>=3.3 it is neces
 
 For Ubuntu 20.04 commands are:
 ```
-  add-apt-repository universe
-  apt update
-  apt install python2
-  curl https://bootstrap.pypa.io/get-pip.py --output get-pip.py
+  sudo add-apt-repository universe
+  sudo apt update
+  sudo apt install python2
+  curl https://bootstrap.pypa.io/2.7/get-pip.py --output get-pip.py
   python2 get-pip.py
-  apt install python3 python3-dev python3-pip build-essential
+  sudo apt install python2-dev python3 python3-dev python3-pip build-essential
 ```
 Install packages for WikiEdits:
 ```
 pip2 install -U numpy
 pip2 install -U nltk==3.4.5
 pip2 install -U python-Levenshtein
+python2 -c "import nltk; nltk.download('punkt')"
 ```
 Install packages for ERRANT, spaCy and english NLP model for spaCy:
 ```
-pip3 install -U nltk
+pip3 install -U nltk pyyaml lxml
 pip3 install -U spacy==2.0.11
 python3 -m spacy download en
 ```
