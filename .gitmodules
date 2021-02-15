@@ -1,0 +1,6 @@
+[submodule "wikiedits"]
+	path = wikiedits
+	url = https://github.com/adrianeboyd/wikiedits.git
+[submodule "errant"]
+	path = errant
+	url = https://github.com/adrianeboyd/errant.git
