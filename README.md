@@ -51,25 +51,27 @@ In solution script filtering could be done with one of available gold GEC traini
 Tokenized versions of FCE and LOCNESS datasets are located in `data/gold_data`. Lang-8 is too large and needs to be downloaded separately.
 
 ## Run solution
-Init `errant` and `wikiedits` submodules:
-```
-git submodule update --init --recursive
-```
+* Init `errant` and `wikiedits` submodules:
+  ```
+  git submodule update --init --recursive
+  ```
 
-Download [Lang-8 tokenized data](https://mega.nz/file/Dxkk2QqA#8gdzRTw1FN4y0VMeTBW6ck-9-2iHVmgd43P5vymY6n8) and move the file into `data/gold_data`
+* Download [Lang-8 tokenized data](https://mega.nz/file/Dxkk2QqA#8gdzRTw1FN4y0VMeTBW6ck-9-2iHVmgd43P5vymY6n8) and move the file into `data/gold_data`
 
-Download one of the compressed Wikipedia revision history dumps (ones containing `...-pages-meta-history...` in name).
+* Download one of the compressed Wikipedia revision history dumps (ones containing `...-pages-meta-history...` in name).
 
-Execute `extract_grammar_mistakes.py` and pass downloaded .7z or .bz2 archive to script:
+* Execute `extract_grammar_mistakes.py` and pass downloaded .7z or .bz2 archive to script:
 
-```
-python3 extract_grammar_mistakes.py -dump /path/to/compressed/dump.7z -gold locness
-```
+  ```
+  python3 extract_grammar_mistakes.py -dump /path/to/compressed/dump.7z -gold locness
+  ```
 
-Flag `-gold` is optional and FCE v2.1 is using by default due to its small size. However with Lang-8 dataset filtering results are better by the cost of time.    
+  Flag `-gold` is optional and FCE v2.1 is using by default due to its small size. However with Lang-8 dataset filtering results are better by the cost of time.    
 After script execution result dataset can be found in `data/errant_data/result`.
 
-I have used these dumps for tests: 
+## Results
+
+I have used these Wikipedia dumps for tests: 
 * https://dumps.wikimedia.org/enwiki/20210101/enwiki-20210101-pages-meta-history2.xml-p150972p151573.bz2
 * https://dumps.wikimedia.org/enwiki/20210101/enwiki-20210101-pages-meta-history14.xml-p14320517p14324602.bz2
 
