@@ -30,7 +30,7 @@ For Ubuntu 20.04 commands are:
 ```
 Install packages for WikiEdits:
 ```
-pip2 install -U numpy
+pip2 install -U numpy pyyaml lxml
 pip2 install -U nltk==3.4.5
 pip2 install -U python-Levenshtein
 python2 -c "import nltk; nltk.download('punkt')"
