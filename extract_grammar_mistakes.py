@@ -46,7 +46,9 @@ def main(args):
     print("Extracting data with WikiEdits...")
     # Launch wikiedits and write results into .wikiedits.60 file where each line is OLD_EDIT-TAB-NEW_EDIT
     with open(extracted_dumps_dir + extracted_file_name, "w") as outfile:
-        subprocess.call(launch_wikiedits_cmd, shell=True, stdin=unzip_process.stdout, stdout=outfile)
+        process = subprocess.call(launch_wikiedits_cmd, shell=True, stdin=unzip_process.stdout, stdout=outfile)
+        if process != 0:
+            sys.exit("Error occured")
 
     print("Splitting extracted file into original and corrected files...")
     # Split .wikiedits.60 data into two: .src contains only Old Edits Data and .trg contains only New Edits Data
@@ -69,7 +71,9 @@ def main(args):
     m2_unfiltered_file_path = m2_unfiltered_data_dir + dump_name + '-unfiltered.m2'
     launch_parallel_to_m2_cmd = "python3 errant/parallel_to_m2.py -orig " + original_file_path + " -cor " + \
                                 corrected_file_path + " -out " + m2_unfiltered_file_path + " -lang " + " en " + " -tok "
-    subprocess.call(launch_parallel_to_m2_cmd, shell=True)
+    process = subprocess.call(launch_parallel_to_m2_cmd, shell=True)
+    if process != 0:
+        sys.exit("Error occured")
 
     # Select gold GEC training data
     if args.gold == "fce":
@@ -85,15 +89,18 @@ def main(args):
     gold_data_file_path = data_dir + "gold_data/" + gold_data_file_name
     launch_filter_m2_cmd = "python3 errant/filter_m2.py -filt " + m2_unfiltered_file_path + " -ref " + \
                            gold_data_file_path + " -out " + m2_filtered_file_path
-    subprocess.call(launch_filter_m2_cmd, shell=True)
-    print("Done.")
+    process = subprocess.call(launch_filter_m2_cmd, shell=True)
+    if process != 0:
+        sys.exit("Error occured")
 
     print("Converting filtered .m2 data to plain .txt format...")
     # Convert the filtered wiki m2 data to a plaintext file of parallel sentences splitted by tab
     result_file_path = result_data_dir + dump_name + '-' + args.gold + '.src-trg.txt'
     launch_m2_to_parallel_cmd = "python3 errant/m2_to_parallel.py -m2 " + m2_filtered_file_path + \
                                 " -out " + result_file_path
-    subprocess.call(launch_m2_to_parallel_cmd, shell=True)
+    process = subprocess.call(launch_m2_to_parallel_cmd, shell=True)
+    if process != 0:
+        sys.exit("Error occured")
 
     print("Dataset successfully generated. Location: " + result_file_path)
 
